@@ -1,0 +1,9 @@
+Import-Bytes "chips/img/pikachu_chip_image_pal.bin"
+Deserialize-Palettes GBA --palette-number 1 --palette-size 16 --palette-count 1 --offset 0
+Import-Bitmap "chips/img/pikachu_chip_image.png"
+Convert-Bitmap GBA --sloppy
+Generate-Tilemap GBA-4BPP --no-reduce
+Serialize-Tileset
+Export-Bytes "temp/pikachu_chip_image.img.bin"
+Serialize-Palettes
+Export-Bytes "temp/pikachu_chip_image.pal.bin"
