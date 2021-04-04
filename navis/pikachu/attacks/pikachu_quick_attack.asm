@@ -122,7 +122,7 @@ pikachu_quick_attack_double_team:
 	mov r6, 0x00;color modification
 	bl illusion_object_spawn
 	;stops illusion from flickering
-	bl 0x080E3422
+	bl illusion_object_no_flicker
 	pop r4-r7
 	add r7, 0x01
 	cmp r7, r4
@@ -151,7 +151,7 @@ pikachu_quick_attack_double_team:
 	mov r1, 0x35
 	mov r2, 0x02
 	mov r3, 0x03
-	bl 0x0801A082
+	bl object_update_collision_data
 ;update damage
 	mov r0, PIKACHU_QUICK_ATTACK_DAMAGE
 	ldr r1, [r5, 0x54]
@@ -410,10 +410,10 @@ pikachu_quick_attack_end:
 	strb r0, [r7, 0x01]
 ;reset collision properties
 ;this also resets the damage
-	mov r1, 0x10
+	mov r1, 0x01
 	mov r2, 0x02
 	mov r3, 0x03
-	bl 0x0801A082
+	bl object_update_collision_data
 	mov r0, PIKACHU_ANIMATION_MOVE_IN
 	strb r0, [r5, 0x10]
 ;spawn movement effect object when jumping back to old panel

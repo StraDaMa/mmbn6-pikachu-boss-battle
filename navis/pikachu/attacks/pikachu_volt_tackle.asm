@@ -36,10 +36,11 @@ push r4-r7,r14
 	strh r0, [r7, 0x18]
 	b @@endroutine
 @@canmove:
-;Get move parameters based on which side pikachu is on
+;get the closest panel matching the target's row
 	mov r6, r7
 	ldr r2, [r7, 0x2C]
 	ldrb r0, [r2, 0x13]
+;Get move parameters based on which side pikachu is on
 	ldrb r2, [r5, 0x16]
 	ldr r3, =pikachu_move_parameters
 	lsl r2, r2, 0x03
@@ -48,7 +49,6 @@ push r4-r7,r14
 	ldr r3, [r3, 0x04]
 	mov r7, sp
 	bl object_get_panels_in_row_filtered
-	mov r4, r0
 	tst r0, r0
 	bne @@validpanel
 @@no_move2:
@@ -56,14 +56,12 @@ push r4-r7,r14
 	strh r0, [r6, 0x00]
 	b @@endroutine
 @@validpanel:
-	;mov r0, r7
-	;mov r1, r4
-	;mov r2, r4
-	;bl list_shuffle_byte
+;first result is the closest
 	ldrb r0, [r7, 0x00]
-	lsr r1, r0, 0x04
-	lsl r0, r0, 32-4
-	lsr r0, r0, 32-4
+	lsr r1, r0, 0x04;panel y
+	lsl r0, r0, 32 - 4
+	lsr r0, r0, 32 - 4;panel x
+;check if this is the panel pikachu is already on, if so skip moving to it
 	ldrb r2, [r5, 0x12]
 	cmp r0, r2
 	bne @@new_panel
@@ -101,7 +99,6 @@ pikachu_volt_tackle_move:
 	bne @@step_initialized
 	mov r0, 0x04
 	strb r0,[r7, 0x01]
-
 	ldrb r0, [r5, 0x14]
 	ldrb r1, [r5, 0x15]
 	strb r0, [r5, 0x12]
@@ -110,6 +107,9 @@ pikachu_volt_tackle_move:
 	bl object_update_collision_panels
 	mov r0, 0x40
 	bl object_clear_flag
+	mov r0, 0x01
+	lsl r0, r0, 0x13
+	bl object_set_flag
 	mov r0, PIKACHU_ANIMATION_MOVE_IN
 	strb r0, [r5, 0x10]
 	mov r0, 0x04
@@ -219,7 +219,7 @@ pikachu_volt_tackle_attack:
 	mov r1, 0x30
 	mov r2, 0x02
 	mov r3, 0x03
-	bl 0x0801A082
+	bl object_update_collision_data
 ;set damage
 	ldr r0, =PIKACHU_VOLT_TACKLE_DAMAGE
 	ldr r1, [r5, 0x54]
@@ -342,7 +342,6 @@ pikachu_volt_tackle_attack:
 	ldmia r0!, r1-r3
 	;R G B
 	ldr r6, =((255 >>3) << 0) | ((255 >>3) << 5) | ((0>>3) << 10)
-	;ldr r7,=0x1010014
 	mov r7,0x08
 	bl illusion_object_spawn
 @@no_aferimage:
@@ -365,10 +364,10 @@ pikachu_volt_tackle_end:
 	strb r0, [r7, 0x01]
 ;reset collision properties
 ;this also resets the damage
-	mov r1, 0x10
+	mov r1, 0x01
 	mov r2, 0x02
 	mov r3, 0x03
-	bl 0x0801A082
+	bl object_update_collision_data
 	mov r0, PIKACHU_ANIMATION_MOVE_IN
 	strb r0, [r5, 0x10]
 

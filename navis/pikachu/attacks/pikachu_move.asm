@@ -74,6 +74,9 @@ pikachu_move_end:
 	bl object_update_collision_panels
 	mov r0, 0x40
 	bl object_clear_flag
+	mov r0, 0x01
+	lsl r0, r0, 0x13
+	bl object_set_flag
 	mov r0, PIKACHU_ANIMATION_MOVE_IN
 	strb r0, [r5, 0x10]
 	mov r0, 0x04

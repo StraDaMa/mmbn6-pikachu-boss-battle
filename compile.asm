@@ -2,9 +2,7 @@
 .relativeinclude on
 
 .open "input.gba", "MEGAMAN6_FXX_BR6E00.gba", 0x08000000
-	.sym off
 	.include "defines.asm"
-	.sym on
 
 	.include "macros/attack_macros.asm"
 	.include "macros/npc_macros.asm"

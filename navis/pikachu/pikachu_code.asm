@@ -17,10 +17,10 @@ pikachu_on_damage:
 	push r14
 ;reset collision properties
 ;this also resets the damage
-	mov r1, 0x10
+	mov r1, 0x01
 	mov r2, 0x02
 	mov r3, 0x03
-	bl 0x0801A082
+	bl object_update_collision_data
 ;reset collision shape
 	mov r0, 0x01
 	bl object_set_collision_region

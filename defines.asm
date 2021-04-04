@@ -45,6 +45,7 @@
 .definelabel object_update_collision_panels, 0x0801A04C
 .definelabel object_clear_collision_region, 0x0801A074
 .definelabel object_set_collision_region, 0x0801A07C
+.definelabel object_update_collision_data, 0x0801A082
 .definelabel object_set_flag, 0x0801A152
 .definelabel object_clear_flag, 0x0801A15C
 .definelabel object_reserve_panel, 0x0801BB1C
@@ -59,4 +60,5 @@
 .definelabel diveman_wave_object_spawn, 0x080CB1E2
 .definelabel effect_object_spawn, 0x080E05F6
 .definelabel illusion_object_spawn, 0x080E33FA
+.definelabel illusion_object_no_flicker, 0x080E3422
 .definelabel judgeman_choose_panel, 0x080FCCBC
