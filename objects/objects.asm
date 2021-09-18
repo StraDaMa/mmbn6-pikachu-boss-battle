@@ -1,11 +1,11 @@
 ;add some sprites to temp attack object
-.org 0x080b8e88
+.vorg 0x080B8E88, 0x080BAF18
 	.word temp_attack_object_list
 
-.org 0x080b8e9c
+.vorg 0x080B8E9C, 0x080BAF2C
 	.word temp_attack_object_list
 
 ;add the pikachu chip object to object list
-.org 0x08003CE0
+.vorg 0x08003C9C +  (PIKACHU_CHIP_OBJECT_ID * 4), 0x08003C80 + (PIKACHU_CHIP_OBJECT_ID * 4)
 	.word pikachu_chip_object_main | 1
 ;eof

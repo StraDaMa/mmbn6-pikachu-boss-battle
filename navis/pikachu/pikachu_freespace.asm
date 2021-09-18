@@ -4,18 +4,18 @@ pikachu_fly_thunder_shape_table:
 
 .align 4
 pikachu_ai_struct1:
-	.byte 0x08;sprite_category
-	.byte 0x16;sprite_index
+	.byte PIKACHU_SPRITE_CATEGORY;sprite_category
+	.byte PIKACHU_SPRITE_INDEX;sprite_index
 	.byte 0x01;palettes_per_version
 	.byte 0x01;enemy_type
 	.byte 0x00;collision_damage
-	.byte 0x03;element
+	.byte AttackElement_Elec;element
 	.byte 0x00;secondary_element
 	.byte 0x01;has_shadow
 
 .align 4
 pikachu_ai_struct2:
-	.halfword 0x3000 | 2500;hp + element
+	.halfword (AttackElement_Elec << 12) | 2500;hp + element
 	.byte 0x00;version
 	.byte 0x00;collision_flags
 	.halfword 0x000A;collision_damage
@@ -27,14 +27,14 @@ pikachu_chip_pool:
 .align 4
 pikachu_attack_pool:
 ;first 8 pointers are usually the same for every navi
-	.word 0x08016381;0
-	.word 0x08017889;1
-	.word 0x080FBC8B;2
-	.word 0x080174FF;3
-	.word 0x080175B9;4
-	.word 0x080178B7;5
-	.word 0x08017689;6
-	.word 0x08017769;7
+	.vword 0x08016381, 0x08016981;0
+	.vword 0x08017889, 0x08017E19;1
+	.vword 0x080170C5, 0x08017655;2
+	.vword 0x080174FF, 0x08017A8F;3
+	.vword 0x080175B9, 0x08017B49;4
+	.vword 0x080178B7, 0x08017E47;5
+	.vword 0x08017689, 0x08017C19;6
+	.vword 0x08017769, 0x08017CF9;7
 	.word pikachu_update_ai|1;8
 	.word pikachu_move|1;9
 	.word pikachu_thunderball|1;A

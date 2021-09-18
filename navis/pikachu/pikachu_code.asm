@@ -31,6 +31,7 @@ pikachu_on_damage:
 	ldrb r0, [r2, 0x14]
 	ldrb r1, [r2, 0x15]
 	bl object_remove_panel_reserve
+	bl sprite_has_shadow
 	pop r15
 
 ;decompress DiveMan's sprite because it will be needed for surf

@@ -324,7 +324,7 @@ pikachu_chip_object_spawn:
 	push r14
 	push r0-r2,r5
 	;Was used for Count's chip
-	mov r0, 0x11
+	mov r0, PIKACHU_CHIP_OBJECT_ID
 	bl object_type1_allocate
 	mov r0,r5
 	pop r1-r3,r5

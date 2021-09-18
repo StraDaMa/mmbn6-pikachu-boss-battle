@@ -1,8 +1,10 @@
 ;add pikachu chip object to list of navi chip objects
-.org 0x0802CDA4
+
+.vorg 0x0802CD5C + (PIKACHU_NAVI_CHIP_ID * 4), 0x0802D8B8 + (PIKACHU_NAVI_CHIP_ID * 4)
 	.word pikachu_chip_object_spawn|1;0x12
 
-.org 0x08024FAC
+.vorg 0x08021DA8 + PIKACHU_CHIP_ID * 0x2C, 0x080221BC + PIKACHU_CHIP_ID * 0x2C
+;Count
 	.db ChipCode_P;chipcode1
 	.db ChipCode_Star;chipcode2
 	.db ChipCode_NONE;chipcode3
@@ -12,7 +14,7 @@
 	.db 0x02;element icon
 	.db Library_Mega;library
 	.db 25;mb
-	.db ChipEffect_ShowAttack | ChipEffect_AppearsInLibrary;efect flags
+	.db ChipEffect_ShowAttack | ChipEffect_AppearsInLibrary;effect flags
 	.db 0x00;counter
 	.db 0x1B;attacktype
 	.db 0x12;Level
@@ -32,7 +34,7 @@
 	.dh 0;ID sort order
 	.db 0x01;byte1e
 	.db 0xFF;byte1f
-	.dw 0x0872BE14;Chip Icon
+	.vword 0x0872BE14, 0x08750558;Chip Icon
 	.dw pikachu_chip_image;Chip Image
 	.dw pikachu_chip_image_pal;ChipImagePalette
 ;eof
